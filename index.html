@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CSS/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Rubik:ital,wght@0,600;1,600&display=swap"
+        rel="stylesheet">
+    <title>To-Do List</title>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="container">
+            <h1>Daily To Do List</h1>
+            <div class="container__tasks-wrapper">
+                <form class="create-task-block">
+                    <input name="taskName" class="create-task-block__input" type="text"
+                        placeholder="Добавить новый элемент списка" value="" />
+                    <button type="submit" class="create-task-block__button">
+                        Добавить
+                    </button>
+                </form>
+                <div class="container__tasks-list"></div>
+                <div class="container__bottom">
+                    <div class="bottom__count-items"></div>
+                    <button type="submit" class="bottom__buttom-delete-all">Удалить все</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="JS/index.js"></script>
+</body>
+
+</html>
