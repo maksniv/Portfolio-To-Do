@@ -1,45 +1,45 @@
 let tasks = [];
-const TASK_URL = "https://jsonplaceholder.typicode.com/users";
-const createTaskBlock = document.querySelector(".create-task-block");
-const containerTasksList = document.querySelector(".container__tasks-list");
+const TASK_URL = 'https://jsonplaceholder.typicode.com/users';
+const createTaskBlock = document.querySelector('.create-task-block');
+const containerTasksList = document.querySelector('.container__tasks-list');
 const bottomButtonDeleteAll = document.querySelector(
-  ".bottom__buttom-delete-all"
+  '.bottom__buttom-delete-all'
 );
 
 const createTaskItem = (taskId, taskTitle, taskCompleted) => {
-  const taskItem = document.createElement("div");
+  const taskItem = document.createElement('div');
   taskItem.dataset.taskId = taskId;
-  taskItem.className = "tasks-list__item";
+  taskItem.className = 'tasks-list__item';
 
-  const taskCheckboxLabel = document.createElement("label");
-  taskCheckboxLabel.setAttribute("for", `${taskId}`);
+  const taskCheckboxLabel = document.createElement('label');
+  taskCheckboxLabel.setAttribute('for', `${taskId}`);
   taskCheckboxLabel.innerText = `${taskTitle}`;
   if (taskCompleted === true) {
-    taskCheckboxLabel.className = "tasks-list__item-checkbox-label crossing";
+    taskCheckboxLabel.className = 'tasks-list__item-checkbox-label crossing';
   } else {
-    taskCheckboxLabel.className = "tasks-list__item-checkbox-label";
+    taskCheckboxLabel.className = 'tasks-list__item-checkbox-label';
   }
   taskItem.append(taskCheckboxLabel);
 
-  const taskCheckboxSpan = document.createElement("span");
-  taskCheckboxSpan.className = "tasks-list__item-checkbox-span";
+  const taskCheckboxSpan = document.createElement('span');
+  taskCheckboxSpan.className = 'tasks-list__item-checkbox-span';
   taskCheckboxLabel.prepend(taskCheckboxSpan);
 
-  const taskCheckbox = document.createElement("input");
-  taskCheckbox.setAttribute("type", "checkbox");
-  taskCheckbox.setAttribute("id", `${taskId}`);
-  taskCheckbox.className = "tasks-list__item-checkbox";
+  const taskCheckbox = document.createElement('input');
+  taskCheckbox.setAttribute('type', 'checkbox');
+  taskCheckbox.setAttribute('id', `${taskId}`);
+  taskCheckbox.className = 'tasks-list__item-checkbox';
   taskCheckbox.checked = taskCompleted;
   taskCheckboxLabel.prepend(taskCheckbox);
 
-  const taskDeleteButton = document.createElement("button");
-  taskDeleteButton.className = "tasks-list__item-task-delete-button";
+  const taskDeleteButton = document.createElement('button');
+  taskDeleteButton.className = 'tasks-list__item-task-delete-button';
   taskDeleteButton.dataset.deleteTaskId = taskId;
   taskItem.append(taskDeleteButton);
 
-  const taskDeleteButtonSpan = document.createElement("span");
-  taskDeleteButtonSpan.innerText = "close";
-  taskDeleteButtonSpan.className = "material-symbols-outlined";
+  const taskDeleteButtonSpan = document.createElement('span');
+  taskDeleteButtonSpan.innerText = 'close';
+  taskDeleteButtonSpan.className = 'material-symbols-outlined';
   taskDeleteButton.append(taskDeleteButtonSpan);
 
   return taskItem;
@@ -47,7 +47,7 @@ const createTaskItem = (taskId, taskTitle, taskCompleted) => {
 
 const loadTaskItem = async (id) => {
   try {
-    const requests = await fetch(`${TASK_URL}/${id}/todos`);
+    const requests = await fetch(`${TASK_URL}/${id}/todos?_limit=3`);
     const response = await requests.json();
     response.forEach((element) => {
       const taskItem = createTaskItem(
@@ -100,7 +100,7 @@ const removeTaskItem = (deleteId) => {
 const countItems = () => {
   const сhildrenContainerTaskList = containerTasksList.children;
   const countTask = Array.from(сhildrenContainerTaskList).length;
-  const bottomCountItems = document.querySelector(".bottom__count-items");
+  const bottomCountItems = document.querySelector('.bottom__count-items');
   bottomCountItems.innerText = `Всего заметок: ${countTask}`;
 };
 
@@ -113,15 +113,15 @@ const addTaskElement = (event) => {
     addTaskInObj(idValue, inputValue, false);
     containerTasksList.append(taskItem);
     const createTaskBlockInput = document.querySelector(
-      ".create-task-block__input"
+      '.create-task-block__input'
     );
-    createTaskBlockInput.value = "";
+    createTaskBlockInput.value = '';
     countItems();
   }
 };
 
 const deleteAll = (event) => {
-  const isDeleteButton = event.target.closest(".bottom__buttom-delete-all");
+  const isDeleteButton = event.target.closest('.bottom__buttom-delete-all');
   const сhildrenContainerTaskList = containerTasksList.children;
   if (isDeleteButton) {
     Array.from(сhildrenContainerTaskList).forEach((item) => {
@@ -134,10 +134,10 @@ const deleteAll = (event) => {
 const toggleCheckbox = (isCheckbox) => {
   const items = document.querySelector(`[for="${isCheckbox.id}"]`);
   if (isCheckbox.checked) {
-    items.classList.add("crossing");
+    items.classList.add('crossing');
     items.checked = true;
   } else {
-    items.classList.remove("crossing");
+    items.classList.remove('crossing');
     items.checked = false;
   }
 };
@@ -156,16 +156,16 @@ const toggleCheckboxInObj = (isCheckbox) => {
 };
 
 function saveToLocalStorage() {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-createTaskBlock.addEventListener("submit", addTaskElement);
+createTaskBlock.addEventListener('submit', addTaskElement);
 
-containerTasksList.addEventListener("click", (event) => {
+containerTasksList.addEventListener('click', (event) => {
   const isDeleteButton = event.target.closest(
-    ".tasks-list__item-task-delete-button"
+    '.tasks-list__item-task-delete-button'
   );
-  const isCheckbox = event.target.closest(".tasks-list__item-checkbox");
+  const isCheckbox = event.target.closest('.tasks-list__item-checkbox');
 
   if (isDeleteButton) {
     removeTaskItem(isDeleteButton.dataset.deleteTaskId);
@@ -177,11 +177,11 @@ containerTasksList.addEventListener("click", (event) => {
   }
 });
 
-bottomButtonDeleteAll.addEventListener("click", deleteAll);
+bottomButtonDeleteAll.addEventListener('click', deleteAll);
 
-if (localStorage.getItem("tasks")) {
+if (localStorage.getItem('tasks')) {
   countItems();
-  tasks = JSON.parse(localStorage.getItem("tasks"));
+  tasks = JSON.parse(localStorage.getItem('tasks'));
   tasks.forEach((task) => {
     const taskItem = createTaskItem(task.id, task.title, task.completed);
     containerTasksList.append(taskItem);
@@ -190,3 +190,5 @@ if (localStorage.getItem("tasks")) {
 } else {
   loadTaskItem(getRandomIdTasks());
 }
+
+console.log('Done');
